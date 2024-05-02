@@ -61,16 +61,13 @@ function addQuadrato(griglia, i) {
 
 function addClick(quadrato, i) {
     quadrato.classList.toggle('evidenziato')
+
     // let x = Math.floor(Math.random() * 10) + 1
-    // if (quadrato.classList.contains('evidenziato')) {
-    //     if (x == 3 || x == 6) {
-    //         quadrato.innerHTML = '<i class="fa-solid fa-bomb"></i>'
-    //     } else {
-    //         quadrato.textContent = ''
-    //     }
-    // } else {
-    //     quadrato.textContent = ''
-    // }
+    if (quadrato.classList.contains('evidenziato')) {
+        if (bombe.includes(i)) {
+            quadrato.innerHTML = '<i class="fa-solid fa-bomb"></i>'
+        }
+    }
 }
 
 // creo la funzione che mostra i tasti dei livelli
