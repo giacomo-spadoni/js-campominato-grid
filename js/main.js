@@ -11,35 +11,21 @@ fine.addEventListener('click', function () {
     griglia.innerHTML = ''
 })
 
-facile.addEventListener('click', function () {
+facile.addEventListener('click', start.bind('null', 'easy', 100))
+
+medio.addEventListener('click', start.bind('null', 'standard', 81))
+
+difficile.addEventListener('click', start.bind('null', 'hard', 49))
+
+function start(livello, celle) {
     hidden()
 
-    griglia.classList.add('easy')
+    griglia.classList.add(livello)
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < celle; i++) {
         addQuadrato(griglia, i)
     }
-})
-
-medio.addEventListener('click', function () {
-    hidden()
-
-    griglia.classList.add('standard')
-
-    for (let i = 0; i < 81; i++) {
-        addQuadrato(griglia, i)
-    }
-})
-
-difficile.addEventListener('click', function () {
-    hidden()
-
-    griglia.classList.add('hard')
-
-    for (let i = 0; i < 49; i++) {
-        addQuadrato(griglia, i)
-    }
-})
+}
 
 
 function addQuadrato(griglia, i) {
