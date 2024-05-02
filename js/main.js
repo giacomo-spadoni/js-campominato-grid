@@ -4,6 +4,7 @@ const facile = document.getElementById('easy')
 const medio = document.getElementById('standard')
 const difficile = document.getElementById('hard')
 const fine = document.getElementById('end')
+const bombe = []
 
 // creo l'evento al tasto fine partita
 
@@ -26,6 +27,15 @@ difficile.addEventListener('click', start.bind('null', 'hard', 49))
 
 function start(livello, celle) {
     hidden()
+
+    let n = 0
+    while (n < 16) {
+        let z = Math.floor(Math.random() * celle) + 1
+        if (!bombe.includes(z)) {
+            bombe.push(z)
+            n++
+        }
+    }
 
     griglia.classList.add(livello)
 
@@ -51,16 +61,16 @@ function addQuadrato(griglia, i) {
 
 function addClick(quadrato, i) {
     quadrato.classList.toggle('evidenziato')
-    let x = Math.floor(Math.random() * 10) + 1
-    if (quadrato.classList.contains('evidenziato')) {
-        if (x == 3 || x == 6) {
-            quadrato.innerHTML = '<i class="fa-solid fa-bomb"></i>'
-        } else {
-            quadrato.textContent = ''
-        }
-    } else {
-        quadrato.textContent = ''
-    }
+    // let x = Math.floor(Math.random() * 10) + 1
+    // if (quadrato.classList.contains('evidenziato')) {
+    //     if (x == 3 || x == 6) {
+    //         quadrato.innerHTML = '<i class="fa-solid fa-bomb"></i>'
+    //     } else {
+    //         quadrato.textContent = ''
+    //     }
+    // } else {
+    //     quadrato.textContent = ''
+    // }
 }
 
 // creo la funzione che mostra i tasti dei livelli
