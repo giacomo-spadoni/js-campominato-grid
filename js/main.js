@@ -39,7 +39,11 @@ function start(livello, celle) {
 function addQuadrato(griglia, i) {
     let quadrato = document.createElement('div')
     quadrato.classList.add('square')
-    quadrato.addEventListener('click', addClick.bind('null', quadrato, i))
+    // funzione dentro funzione senza .bind
+    quadrato.addEventListener('click', function () {
+        addClick(quadrato, i)
+    })
+    // quadrato.addEventListener('click', addClick.bind('null', quadrato, i))
     griglia.append(quadrato)
 }
 
@@ -47,8 +51,13 @@ function addQuadrato(griglia, i) {
 
 function addClick(quadrato, i) {
     quadrato.classList.toggle('evidenziato')
+    let x = Math.floor(Math.random() * 10) + 1
     if (quadrato.classList.contains('evidenziato')) {
-        quadrato.textContent = i
+        if (x == 3 || x == 6) {
+            quadrato.innerHTML = '<i class="fa-solid fa-bomb"></i>'
+        } else {
+            quadrato.textContent = ''
+        }
     } else {
         quadrato.textContent = ''
     }
