@@ -39,15 +39,19 @@ function start(livello, celle) {
 function addQuadrato(griglia, i) {
     let quadrato = document.createElement('div')
     quadrato.classList.add('square')
-    quadrato.addEventListener('click', function () {
-        quadrato.classList.toggle('evidenziato')
-        if (quadrato.classList.contains('evidenziato')) {
-            quadrato.textContent = i
-        } else {
-            quadrato.textContent = ''
-        }
-    })
+    quadrato.addEventListener('click', addClick.bind('null', quadrato, i))
     griglia.append(quadrato)
+}
+
+// creo l'evento per il click sulle celle
+
+function addClick(quadrato, i) {
+    quadrato.classList.toggle('evidenziato')
+    if (quadrato.classList.contains('evidenziato')) {
+        quadrato.textContent = i
+    } else {
+        quadrato.textContent = ''
+    }
 }
 
 // creo la funzione che mostra i tasti dei livelli
