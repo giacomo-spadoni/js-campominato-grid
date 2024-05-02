@@ -6,10 +6,16 @@ const difficile = document.getElementById('hard')
 const fine = document.getElementById('end')
 const score = document.getElementById('score')
 
+let f = 0
+
+let gameover = false
+
 let punteggio = 0
 livescore(punteggio)
 
 const bombe = []
+
+
 
 // creo l'evento al tasto fine partita
 
@@ -21,6 +27,7 @@ fine.addEventListener('click', function () {
     bombe.length = 0
     punteggio = 0
     livescore(punteggio)
+    gameover = false
 })
 
 // creo gli eventi ai tasti di difficoltà diverse
@@ -36,9 +43,11 @@ difficile.addEventListener('click', start.bind('null', 'hard', 49))
 function start(livello, celle) {
     hidden()
 
+    f = celle
+
     let n = 0
     while (n < 16) {
-        let z = Math.floor(Math.random() * celle)
+        let z = Math.floor(Math.random() * f)
         if (!bombe.includes(z)) {
             bombe.push(z)
             n++
@@ -47,7 +56,7 @@ function start(livello, celle) {
 
     griglia.classList.add(livello)
 
-    for (let i = 0; i < celle; i++) {
+    for (let i = 0; i < f; i++) {
         addQuadrato(griglia, i)
     }
 }
@@ -68,16 +77,22 @@ function addQuadrato(griglia, i) {
 // creo l'evento per il click sulle celle
 
 function addClick(quadrato, i) {
-    if (!quadrato.classList.contains('evidenziato')) {
+    if (!quadrato.classList.contains('evidenziato') && gameover == false) {
         quadrato.classList.add('evidenziato')
 
         // let x = Math.floor(Math.random() * 10) + 1
         if (quadrato.classList.contains('evidenziato')) {
             if (bombe.includes(i)) {
                 quadrato.innerHTML = '<i class="fa-solid fa-bomb"></i>'
+                lose.classList.remove('hidden')
+                gameover = true
             } else {
                 punteggio++
                 livescore(punteggio)
+                if (punteggio == f - 16) {
+                    win.classList.remove('hidden')
+                    gameover = true
+                }
             }
         } else {
             quadrato.innerHTML = ''
@@ -93,6 +108,8 @@ function show() {
     difficile.classList.remove('hidden')
     score.classList.add('hidden')
     fine.classList.add('hidden')
+    lose.classList.add('hidden')
+    win.classList.add('hidden')
 }
 
 // creo la funzione che nasconde i tasti dei livelli
@@ -101,6 +118,7 @@ function hidden() {
     facile.classList.add('hidden')
     medio.classList.add('hidden')
     difficile.classList.add('hidden')
+
     score.classList.remove('hidden')
     fine.classList.remove('hidden')
 }
