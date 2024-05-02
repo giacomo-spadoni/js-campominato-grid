@@ -1,6 +1,10 @@
 const griglia = document.getElementById('grid')
 
 for (let i = 0; i < 9; i++) {
+    addQuadrato(griglia, i)
+}
+
+function addQuadrato(griglia, i) {
     let quadrato = document.createElement('div')
     quadrato.classList.add('square')
     quadrato.addEventListener('click', function () {
@@ -13,4 +17,3 @@ for (let i = 0; i < 9; i++) {
     })
     griglia.append(quadrato)
 }
-
