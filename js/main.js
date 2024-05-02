@@ -4,6 +4,11 @@ const facile = document.getElementById('easy')
 const medio = document.getElementById('standard')
 const difficile = document.getElementById('hard')
 const fine = document.getElementById('end')
+const score = document.getElementById('score')
+
+let punteggio = 0
+livescore(punteggio)
+
 const bombe = []
 
 // creo l'evento al tasto fine partita
@@ -13,6 +18,9 @@ fine.addEventListener('click', function () {
 
     griglia.classList = ''
     griglia.innerHTML = ''
+    bombe.length = 0
+    punteggio = 0
+    livescore(punteggio)
 })
 
 // creo gli eventi ai tasti di difficoltà diverse
@@ -30,7 +38,7 @@ function start(livello, celle) {
 
     let n = 0
     while (n < 16) {
-        let z = Math.floor(Math.random() * celle) + 1
+        let z = Math.floor(Math.random() * celle)
         if (!bombe.includes(z)) {
             bombe.push(z)
             n++
@@ -60,12 +68,19 @@ function addQuadrato(griglia, i) {
 // creo l'evento per il click sulle celle
 
 function addClick(quadrato, i) {
-    quadrato.classList.toggle('evidenziato')
+    if (!quadrato.classList.contains('evidenziato')) {
+        quadrato.classList.add('evidenziato')
 
-    // let x = Math.floor(Math.random() * 10) + 1
-    if (quadrato.classList.contains('evidenziato')) {
-        if (bombe.includes(i)) {
-            quadrato.innerHTML = '<i class="fa-solid fa-bomb"></i>'
+        // let x = Math.floor(Math.random() * 10) + 1
+        if (quadrato.classList.contains('evidenziato')) {
+            if (bombe.includes(i)) {
+                quadrato.innerHTML = '<i class="fa-solid fa-bomb"></i>'
+            } else {
+                punteggio++
+                livescore(punteggio)
+            }
+        } else {
+            quadrato.innerHTML = ''
         }
     }
 }
@@ -76,6 +91,7 @@ function show() {
     facile.classList.remove('hidden')
     medio.classList.remove('hidden')
     difficile.classList.remove('hidden')
+    score.classList.add('hidden')
     fine.classList.add('hidden')
 }
 
@@ -85,5 +101,10 @@ function hidden() {
     facile.classList.add('hidden')
     medio.classList.add('hidden')
     difficile.classList.add('hidden')
+    score.classList.remove('hidden')
     fine.classList.remove('hidden')
+}
+
+function livescore(punteggio) {
+    score.innerHTML = "Il tuo punteggio è: " + punteggio
 }
